@@ -3,9 +3,9 @@
 
 name = "Mlkw"
 license = "MIT"
-licenselink = "https://github.com/yourname/yourtheme/blob/master/LICENSE"
+licenselink = "https://github.com/Mofrog/portfolio-site/blob/master/themes/mlkw/LICENSE"
 description = ""
-homepage = "http://example.com/"
+homepage = "https://mofrog.github.io/portfolio-site/"
 tags = []
 features = []
 min_version = "0.41.0"
