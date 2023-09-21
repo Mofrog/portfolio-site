@@ -1,5 +1,5 @@
 title = "Портофлио"
-baseURL = "https://test.dev/"
+baseURL = "https://mofrog.github.io/portfolio-site/"
 languageCode = "ru-ru"
 theme = "mlkw"
 
