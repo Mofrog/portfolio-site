@@ -1,0 +1,75 @@
+<!doctype html><html class=helvetica><head>
+<link rel=stylesheet href=/css/_code.css>
+<link rel=stylesheet href=https://unpkg.com/tachyons@4/css/tachyons.min.css>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+</head><body><header class="bb b--black-30 pa3 pt3 bg-near-white">
+<div class="dt-ns mw9 center w-100 black-80">
+<a class="nowrap tc f3 fw6 hover-blue black-80 link mr3-m dib w-100" href=https://test.dev/>Сайт портфолио</a>
+<nav class="tc w-100 dtc-ns tl pb2">
+<a class="f4 mh2 nowrap lh-copy">Александр Новиков</a>
+<a class="f5 mh2 nowrap lh-copy">19 лет</a>
+<a class="f5 mh2 lh-copy">г.Краснодар</a>
+</nav>
+<nav class="dtc-ns v-mid tc w-100">
+<a class=dim href=https://github.com/Mofrog><img class=w2 src=/socials/github.svg></a>
+<a class=dim href=https://t.me/sad_mofrog><img class=w2 src=/socials/telegram.svg></a>
+<a class="fw6 pa1 f6 hover-blue link mr3-m dib w-100">milky.way.pew.pew@gmail.com</a>
+</nav>
+</div>
+</header><section class=pa4>
+<article>
+<div class="bb b--black-10 pa3 mb4">
+<h1 class="f3 fw6 black-80 mb4 lh-copy">Сайт портфолио</h1>
+<p class=lh-copy> Добавлено: 19.09.2023 </p>
+<p class=lh-copy> Статический сайт и тема для портфолио. Создан при помощи Hugo. </p>
+<ul class="list pl0 cf w-100">
+<li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">web</a>
+</li><li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">frontend</a>
+</li>
+</ul>
+</div>
+<div class="lh-copy pa3 black-80"><h2 id=общая-информация>Общая информация</h2>
+<ul>
+<li>Статический сайт который предназначен для вывода информации о проетах в виде отельных статей;</li>
+<li>сайт создан на основе фреймворка <a href=https://gohugo.io/>Hugo</a>;</li>
+<li>была создана собсвенная тема для Hugo;</li>
+<li>была использована css библиотека <a href=https://tachyons.io/>Tachyons</a>.</li>
+</ul>
+<h2 id=реализация>Реализация</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>    {{ define &#34;main&#34; }}&lt;<span style=color:#f92672>main</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pa4&#34;</span>&gt;
+    &lt;<span style=color:#f92672>p</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lh-copy tc&#34;</span>&gt; {{ .Param &#34;description&#34; }} &lt;/<span style=color:#f92672>p</span>&gt;
+    {{ range where .Site.RegularPages &#34;Type&#34; &#34;posts&#34; }}&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;bt b--black-10 pa3 bw1&#34;</span>&gt;
+        &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;f3 fw6 hover-light-blue link blue&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ .Permalink }}&#34;</span>&gt; {{ .Title }} &lt;/<span style=color:#f92672>a</span>&gt;
+        &lt;<span style=color:#f92672>p</span>&gt; Добавлено: {{ .Params.date.Format &#34;02.01.2006&#34; }} &lt;/<span style=color:#f92672>p</span>&gt;
+        &lt;<span style=color:#f92672>p</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;lh-copy&#34;</span>&gt; {{ .Params.description }} &lt;/<span style=color:#f92672>p</span>&gt;
+        {{ with .Params.categories }}&lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;list pl0 cf w-100&#34;</span>&gt;
+            {{ range . }}&lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60&#34;</span>&gt;
+                 &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;f5 link dib black-80 w-100 h-100 tc pt2&#34;</span>&gt;{{ . }}&lt;/<span style=color:#f92672>a</span>&gt;
+             &lt;/<span style=color:#f92672>li</span>&gt;{{ end }}
+         &lt;/<span style=color:#f92672>ul</span>&gt;{{ end }}
+      &lt;/<span style=color:#f92672>div</span>&gt;{{ end }}
+    &lt;/<span style=color:#f92672>main</span>&gt;{{ end }}
+</code></pre></div><h4 id=фрагмент-html-разметки-вывода-списка-статей>Фрагмент html разметки вывода списка статей.</h4>
+<h3 id=полный-исходный-код-сайта-можно-посмотреть-здесьhttpsgithubcommofrogportfolio-site>Полный исходный код сайта можно посмотреть <a href=https://github.com/Mofrog/portfolio-site>здесь</a>.</h3>
+</div>
+</article>
+<aside class="bt b--black-10 pa3 bw1 lh-copy">
+<div class=f5>
+<span>Предыдущий проект:</span>
+<a class="nowrap fw6 hover-light-blue link blue dib" href=https://test.dev/posts/logistic-system/>Логистическая система</a>
+</div>
+</aside>
+</section><footer class="bt b--black-30 pa3 pt3 bg-near-white mt4">
+<nav class="tc w-100 pb3">
+<a class=dim href=https://github.com/Mofrog><img class=w2 src=/socials/github.svg></a>
+<a class=dim href=https://t.me/sad_mofrog><img class=w2 src=/socials/telegram.svg></a>
+<a class="fw6 pa1 hover-blue link mr3-m dib w-100">milky.way.pew.pew@gmail.com</a>
+</nav>
+<nav class="tc w-100">
+<a class="nowrap w-100 f5 black-60 link">(c) Александр Новиков 2023</a>
+<a class="nowrap hover-blue w-100 f6 fw6 black-60 link">Powered by &lt;3</a>
+</nav>
+</footer></body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html><html class=helvetica><head>
+<link rel=stylesheet href=/css/_code.css>
+<link rel=stylesheet href=https://unpkg.com/tachyons@4/css/tachyons.min.css>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+</head><body><header class="bb b--black-30 pa3 pt3 bg-near-white">
+<div class="dt-ns mw9 center w-100 black-80">
+<a class="nowrap tc f3 fw6 hover-blue black-80 link mr3-m dib w-100" href=https://test.dev/>Логистическая система</a>
+<nav class="tc w-100 dtc-ns tl pb2">
+<a class="f4 mh2 nowrap lh-copy">Александр Новиков</a>
+<a class="f5 mh2 nowrap lh-copy">19 лет</a>
+<a class="f5 mh2 lh-copy">г.Краснодар</a>
+</nav>
+<nav class="dtc-ns v-mid tc w-100">
+<a class=dim href=https://github.com/Mofrog><img class=w2 src=/socials/github.svg></a>
+<a class=dim href=https://t.me/sad_mofrog><img class=w2 src=/socials/telegram.svg></a>
+<a class="fw6 pa1 f6 hover-blue link mr3-m dib w-100">milky.way.pew.pew@gmail.com</a>
+</nav>
+</div>
+</header><section class=pa4>
+<article>
+<div class="bb b--black-10 pa3 mb4">
+<h1 class="f3 fw6 black-80 mb4 lh-copy">Логистическая система</h1>
+<p class=lh-copy> Добавлено: 03.07.2023 </p>
+<p class=lh-copy> Проект логистической системы, позволяющий автоматизировать процессы учета выполнения и формирования маршрутных листов. Реализован в рамках дипломной работы. </p>
+<ul class="list pl0 cf w-100">
+<li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">fullstack</a>
+</li><li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">.NET</a>
+</li><li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">java</a>
+</li><li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+<a class="f5 link dib black-80 w-100 h-100 tc pt2">android</a>
+</li>
+</ul>
+</div>
+<div class="lh-copy pa3 black-80"><h2 id=описание-и-решаемые-задачи>Описание и решаемые задачи</h2>
+<p>Система предназначена для автоматизации процесса формирования оптимального маршрута, а также для автоматизации процесса распределения заказов между водителями.</p>
+<ul>
+<li>Система позволила автоматизировать процесс распределения заказов, тем самым разгрузив операторов;</li>
+<li>обеспечила хранение и обмен данных;</li>
+<li>позволила оптимизировать маршрут следования.</li>
+</ul>
+<h2 id=реализация>Реализация</h2>
+<p>Система была реализована в двух приложениях, настольное и мобильное. Настольное приложение предназначено для оператора. Мобильное приложение предназначено для водителя.</p>
+<p>Мобильное приложение было запрограммировано в Android Studio на языке Java.</p>
+<figure><img src=/images/mobile.png><figcaption>
+<h4>Окно мобильного приложения с возможностью выбора заказа</h4>
+</figcaption>
+</figure>
+<p>Для отображения карты использовалось API Yandex maps.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>    <span style=color:#75715e>/**
+</span><span style=color:#75715e>     * Начинает пострение маршрута из нынешнего расположения, включает поиск координаты расположения по адресу
+</span><span style=color:#75715e>     * @param position Адрес точки назначения
+</span><span style=color:#75715e>     */</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>routingStart</span><span style=color:#f92672>(</span>String position<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        searchManager<span style=color:#f92672>.</span><span style=color:#a6e22e>submit</span><span style=color:#f92672>(</span>
+                position<span style=color:#f92672>,</span> VisibleRegionUtils<span style=color:#f92672>.</span><span style=color:#a6e22e>toPolygon</span><span style=color:#f92672>(</span>mapView<span style=color:#f92672>.</span><span style=color:#a6e22e>getMap</span><span style=color:#f92672>().</span><span style=color:#a6e22e>getVisibleRegion</span><span style=color:#f92672>()),</span>
+                <span style=color:#66d9ef>new</span> SearchOptions<span style=color:#f92672>(),</span> <span style=color:#66d9ef>this</span><span style=color:#f92672>);</span>
+        DatabaseReference reference <span style=color:#f92672>=</span> FirebaseDatabase<span style=color:#f92672>.</span><span style=color:#a6e22e>getInstance</span><span style=color:#f92672>().</span><span style=color:#a6e22e>getReference</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;/Orders&#34;</span><span style=color:#f92672>);</span>
+        reference<span style=color:#f92672>.</span><span style=color:#a6e22e>child</span><span style=color:#f92672>(</span>Long<span style=color:#f92672>.</span><span style=color:#a6e22e>toString</span><span style=color:#f92672>(</span>currentItem<span style=color:#f92672>.</span><span style=color:#a6e22e>Id</span><span style=color:#f92672>)).</span><span style=color:#a6e22e>child</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;Status&#34;</span><span style=color:#f92672>).</span><span style=color:#a6e22e>setValue</span><span style=color:#f92672>((</span><span style=color:#66d9ef>long</span><span style=color:#f92672>)</span>1<span style=color:#f92672>);</span>
+        reference<span style=color:#f92672>.</span><span style=color:#a6e22e>child</span><span style=color:#f92672>(</span>Long<span style=color:#f92672>.</span><span style=color:#a6e22e>toString</span><span style=color:#f92672>(</span>currentItem<span style=color:#f92672>.</span><span style=color:#a6e22e>Id</span><span style=color:#f92672>))</span>
+                <span style=color:#f92672>.</span><span style=color:#a6e22e>child</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;TakeDate&#34;</span><span style=color:#f92672>).</span><span style=color:#a6e22e>setValue</span><span style=color:#f92672>(</span>Calendar<span style=color:#f92672>.</span><span style=color:#a6e22e>getInstance</span><span style=color:#f92672>().</span><span style=color:#a6e22e>getTime</span><span style=color:#f92672>().</span><span style=color:#a6e22e>toString</span><span style=color:#f92672>());</span>
+        findViewById<span style=color:#f92672>(</span>R<span style=color:#f92672>.</span><span style=color:#a6e22e>id</span><span style=color:#f92672>.</span><span style=color:#a6e22e>btnAuth</span><span style=color:#f92672>).</span><span style=color:#a6e22e>setEnabled</span><span style=color:#f92672>(</span><span style=color:#66d9ef>false</span><span style=color:#f92672>);</span>
+        findViewById<span style=color:#f92672>(</span>R<span style=color:#f92672>.</span><span style=color:#a6e22e>id</span><span style=color:#f92672>.</span><span style=color:#a6e22e>data_items</span><span style=color:#f92672>).</span><span style=color:#a6e22e>setVisibility</span><span style=color:#f92672>(</span>View<span style=color:#f92672>.</span><span style=color:#a6e22e>GONE</span><span style=color:#f92672>);</span>
+        findViewById<span style=color:#f92672>(</span>R<span style=color:#f92672>.</span><span style=color:#a6e22e>id</span><span style=color:#f92672>.</span><span style=color:#a6e22e>confirmMenu</span><span style=color:#f92672>).</span><span style=color:#a6e22e>setVisibility</span><span style=color:#f92672>(</span>View<span style=color:#f92672>.</span><span style=color:#a6e22e>VISIBLE</span><span style=color:#f92672>);</span>
+        <span style=color:#f92672>((</span>TextView<span style=color:#f92672>)</span> findViewById<span style=color:#f92672>(</span>R<span style=color:#f92672>.</span><span style=color:#a6e22e>id</span><span style=color:#f92672>.</span><span style=color:#a6e22e>txtMainDir</span><span style=color:#f92672>)).</span><span style=color:#a6e22e>setText</span><span style=color:#f92672>(</span>String
+                <span style=color:#f92672>.</span><span style=color:#a6e22e>format</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;%s, %s&#34;</span><span style=color:#f92672>,</span> currentItem<span style=color:#f92672>.</span><span style=color:#a6e22e>CurrentOrder</span><span style=color:#f92672>.</span><span style=color:#a6e22e>Address</span><span style=color:#f92672>,</span> currentItem<span style=color:#f92672>.</span><span style=color:#a6e22e>CurrentOrder</span><span style=color:#f92672>.</span><span style=color:#a6e22e>City</span><span style=color:#f92672>));</span>
+    <span style=color:#f92672>}</span>
+</code></pre></div><h4 id=исходный-код-метода-который-вызывается-после-выбора-заказа>Исходный код метода, который вызывается после выбора заказа.</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java>    <span style=color:#75715e>/**
+</span><span style=color:#75715e>     * Расчет расстояния по формуле Хаверсина
+</span><span style=color:#75715e>     * @param from Первая точка
+</span><span style=color:#75715e>     * @param to Вторая точка
+</span><span style=color:#75715e>     * @return Расстояние между точками в километрах
+</span><span style=color:#75715e>     */</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>double</span> <span style=color:#a6e22e>distance</span><span style=color:#f92672>(</span>Point from<span style=color:#f92672>,</span> Point to<span style=color:#f92672>){</span>
+        <span style=color:#66d9ef>final</span> <span style=color:#66d9ef>double</span> R <span style=color:#f92672>=</span> 6372<span style=color:#f92672>.</span><span style=color:#a6e22e>8</span><span style=color:#f92672>;</span>
+        <span style=color:#66d9ef>double</span> dLat <span style=color:#f92672>=</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>toRadians</span><span style=color:#f92672>(</span>to<span style=color:#f92672>.</span><span style=color:#a6e22e>getLatitude</span><span style=color:#f92672>()</span> <span style=color:#f92672>-</span> from<span style=color:#f92672>.</span><span style=color:#a6e22e>getLatitude</span><span style=color:#f92672>());</span>
+        <span style=color:#66d9ef>double</span> dLon <span style=color:#f92672>=</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>toRadians</span><span style=color:#f92672>(</span>to<span style=color:#f92672>.</span><span style=color:#a6e22e>getLongitude</span><span style=color:#f92672>()</span> <span style=color:#f92672>-</span> from<span style=color:#f92672>.</span><span style=color:#a6e22e>getLongitude</span><span style=color:#f92672>());</span>
+        <span style=color:#66d9ef>double</span> lat1 <span style=color:#f92672>=</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>toRadians</span><span style=color:#f92672>(</span>from<span style=color:#f92672>.</span><span style=color:#a6e22e>getLatitude</span><span style=color:#f92672>());</span>
+        <span style=color:#66d9ef>double</span> lat2 <span style=color:#f92672>=</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>toRadians</span><span style=color:#f92672>(</span>to<span style=color:#f92672>.</span><span style=color:#a6e22e>getLatitude</span><span style=color:#f92672>());</span>
+        <span style=color:#66d9ef>double</span> a <span style=color:#f92672>=</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>pow</span><span style=color:#f92672>(</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>sin</span><span style=color:#f92672>(</span>dLat<span style=color:#f92672>/</span>2<span style=color:#f92672>),</span>2<span style=color:#f92672>)</span> <span style=color:#f92672>+</span> Math<span style=color:#f92672>.</span><span style=color:#a6e22e>pow</span><span style=color:#f92672>(</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>cos</span><span style=color:#f92672>(</span>lat1<span style=color:#f92672>)*</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>cos</span><span style=color:#f92672>(</span>lat2<span style=color:#f92672>)*</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>sin</span><span style=color:#f92672>(</span>dLon<span style=color:#f92672>/</span>2<span style=color:#f92672>),</span>2<span style=color:#f92672>);</span>
+        <span style=color:#66d9ef>double</span> c <span style=color:#f92672>=</span> 2<span style=color:#f92672>*</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>asin</span><span style=color:#f92672>(</span>Math<span style=color:#f92672>.</span><span style=color:#a6e22e>sqrt</span><span style=color:#f92672>(</span>a<span style=color:#f92672>));</span>
+        <span style=color:#66d9ef>return</span> R<span style=color:#f92672>*</span>c<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
+</code></pre></div><h4 id=исходный-код-метода-который-предназначен-для-расчета-дистанции-на-планете>Исходный код метода, который предназначен для расчета дистанции на планете.</h4>
+<p>Настольное приложение было запрограммировано в среде Visual Studio на языке C#.</p>
+<figure><img src=/images/pc1.png><figcaption>
+<h4>Окно настольного приложения</h4>
+</figcaption>
+</figure>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c# data-lang=c#>    <span style=color:#75715e>/// &lt;summary&gt;
+</span><span style=color:#75715e></span>    <span style=color:#75715e>/// Формирует список наименее занятых водителей для составления маршрутного листа
+</span><span style=color:#75715e></span>    <span style=color:#75715e>/// &lt;/summary&gt;
+</span><span style=color:#75715e></span>    <span style=color:#66d9ef>async</span> <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>void</span> LoadData()
+    {
+        CollectionReference ordersRef = App.db.Collection(<span style=color:#e6db74>&#34;Orders&#34;</span>);
+        CollectionReference usersRef = App.db.Collection(<span style=color:#e6db74>&#34;Users&#34;</span>);
+        snapshotOrders = (<span style=color:#66d9ef>await</span> ordersRef.GetSnapshotAsync()).Documents;
+        snapshotUsers = (<span style=color:#66d9ef>await</span> usersRef.GetSnapshotAsync()).Documents;
+        <span style=color:#66d9ef>var</span> userOrders = <span style=color:#66d9ef>new</span> Dictionary&lt;<span style=color:#66d9ef>string</span>, <span style=color:#66d9ef>int</span>&gt;();
+        <span style=color:#75715e>// Составляет массив всех водителей
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>foreach</span> (<span style=color:#66d9ef>var</span> user <span style=color:#66d9ef>in</span> snapshotUsers)
+        {
+            <span style=color:#66d9ef>if</span> (user.GetValue&lt;Int64&gt;(<span style=color:#e6db74>&#34;Role&#34;</span>) == <span style=color:#ae81ff>1</span>) userOrders.Add(user.Id, <span style=color:#ae81ff>0</span>);
+            <span style=color:#66d9ef>foreach</span> (<span style=color:#66d9ef>var</span> order <span style=color:#66d9ef>in</span> snapshotOrders)
+            {
+                <span style=color:#66d9ef>if</span> (user.Id == order.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;UserId&#34;</span>) 
+                &amp;&amp; order.GetValue&lt;Int64&gt;(<span style=color:#e6db74>&#34;Status&#34;</span>) == <span style=color:#ae81ff>0</span>)
+                {
+                    userOrders[user.Id]++;
+                }
+            }
+        }
+        <span style=color:#75715e>// Формирует список водителей, с учетом количества заказов
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>foreach</span> (<span style=color:#66d9ef>var</span> user <span style=color:#66d9ef>in</span> userOrders.OrderBy(p =&gt; p.Value))
+        {
+            <span style=color:#66d9ef>if</span> (user.Value &lt;= <span style=color:#ae81ff>4</span>)
+            {
+                <span style=color:#66d9ef>var</span> item = <span style=color:#66d9ef>new</span> ComboBoxItem();
+                item.Content = App.Users[user.Key] + <span style=color:#e6db74>&#34; &#34;</span> 
+                    + user.Value + <span style=color:#e6db74>&#34; активных заказов.&#34;</span>;
+                item.Tag = user.Key;
+                CBUser.Items.Add(item);
+            }
+        }
+        <span style=color:#66d9ef>foreach</span> (DocumentSnapshot document <span style=color:#66d9ef>in</span> snapshotOrders)
+        {
+            <span style=color:#66d9ef>if</span> ((<span style=color:#66d9ef>string</span>)document.ToDictionary()[<span style=color:#e6db74>&#34;UserId&#34;</span>] == <span style=color:#e6db74>&#34;&#34;</span>)
+            {
+                Orders.Children.Add(<span style=color:#66d9ef>new</span> UCOrderItemSelect(document));
+            }
+        }
+    }
+</code></pre></div><h4 id=исходный-код-метода-который-формирует-список-наименее-занятых-водителей>Исходный код метода, который формирует список наименее занятых водителей.</h4>
+<h2 id=полный-исходный-код>Полный исходный код</h2>
+<ul>
+<li>Полный исходный код настольного приложения можно посмотреть <a href=https://github.com/Mofrog/Pc-Logistic-System>здесь</a>.</li>
+<li>Полный исходный код мобильного приложения можно посмотреть <a href=https://github.com/Mofrog/Mobile-Logistic-System>здесь</a>.</li>
+</ul>
+</div>
+</article>
+<aside class="bt b--black-10 pa3 bw1 lh-copy">
+<div class=f5>
+<span>Предыдущий проект:</span>
+<a class="nowrap fw6 hover-light-blue link blue dib" href=https://test.dev/posts/education/>Образование</a>
+</div>
+<div class=f5>
+<span>Следующий проект:</span>
+<a class="nowrap fw6 hover-light-blue link blue dib" href=https://test.dev/posts/portfolio-site/>Сайт портфолио</a>
+</div>
+</aside>
+</section><footer class="bt b--black-30 pa3 pt3 bg-near-white mt4">
+<nav class="tc w-100 pb3">
+<a class=dim href=https://github.com/Mofrog><img class=w2 src=/socials/github.svg></a>
+<a class=dim href=https://t.me/sad_mofrog><img class=w2 src=/socials/telegram.svg></a>
+<a class="fw6 pa1 hover-blue link mr3-m dib w-100">milky.way.pew.pew@gmail.com</a>
+</nav>
+<nav class="tc w-100">
+<a class="nowrap w-100 f5 black-60 link">(c) Александр Новиков 2023</a>
+<a class="nowrap hover-blue w-100 f6 fw6 black-60 link">Powered by &lt;3</a>
+</nav>
+</footer></body>
+</html>
