@@ -1,0 +1,10 @@
+title = "Портофлио"
+baseURL = "https://test.dev/"
+languageCode = "ru-ru"
+theme = "mlkw"
+
+[params]
+  description = "Ниже представлены различные мои проекты."
+  author = "Александр Новиков"
+  age = "19 лет"
+  city = "г.Краснодар"

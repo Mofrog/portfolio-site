@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.homepage-header {
+    background-color: antiquewhite;
+    padding: 2rem;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    margin: 2em 0;
+    padding: 2em 0;
+    border-bottom: 1px dotted gray;
+}
+
+.home-page-link {
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.home-page-date {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+#single-article #tags li{
+    padding: .5rem .75rem;
+    background-color: lightgray;
+    border-radius: .5rem;
+}
+
+#meta span {
+    font-style: italic;
+}

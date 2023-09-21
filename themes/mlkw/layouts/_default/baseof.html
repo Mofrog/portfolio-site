@@ -1,0 +1,9 @@
+<!DOCTYPE html><!-- Для сборки сайта использовался фреймворк Hugo (https://gohugo.io/), для создания css стилей использовалась библиотека "Tachyons" (https://tachyons.io/) -->
+<html class="helvetica">
+    {{- partial "head.html" . -}}
+    <body>
+        {{- partial "header.html" . -}}
+        {{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+    </body>
+</html>

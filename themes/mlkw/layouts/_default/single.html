@@ -1,0 +1,30 @@
+{{ define "main" }}<section class="pa4">
+    <article>
+        <div class="bb b--black-10 pa3 mb4">
+            <h1 class="f3 fw6 black-80 mb4 lh-copy">{{ .Title }}</h1>
+            <p class="lh-copy"> Добавлено: {{ .Params.date.Format "02.01.2006" }} </p>
+            <p class="lh-copy"> {{ .Params.description }} </p>
+            {{ with .Params.categories }}<ul class="list pl0 cf w-100">
+                {{ range . }}<li class="hover-light-silver mw4 fl ma1 w-100 w-20-ns h2 ba br3 grow black-60">
+                    <a class="f5 link dib black-80 w-100 h-100 tc pt2">{{ . }}</a>
+                </li>{{ end }}
+            </ul>{{ end }}
+        </div>
+        <div class="lh-copy pa3 black-80">{{.Content}}</div>
+        {{ with .Params.tags }}<ul>
+            {{ range . }}<li>
+                <a href="{{ "tags" | absURL }}/{{ . | urlize }}">{{ . }}</a>
+            </li>{{ end }}
+        </ul>{{ end }}
+    </article>
+    <aside class="bt b--black-10 pa3 bw1 lh-copy">{{ with .PrevInSection }}
+        <div class="f5">
+            <span>Предыдущий проект:</span>
+            <a class="nowrap fw6 hover-light-blue link blue dib" href="{{ .Permalink }}">{{ .Title }}</a>
+        </div>{{ end }}{{ with .NextInSection }}
+        <div class="f5">
+            <span>Следующий проект:</span>
+            <a class="nowrap fw6 hover-light-blue link blue dib" href="{{ .Permalink }}">{{ .Title }}</a>
+        </div>{{ end }}
+    </aside>
+</section>{{ end }}
